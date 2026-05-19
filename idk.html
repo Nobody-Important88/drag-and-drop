@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Drag & Drop Game</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f2f2f2;
+            color: #000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrapper {
+            text-align: center;
+        }
+
+        .arena {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        #draggable {
+            width: 80px;
+            height: 80px;
+            background: yellow;
+            border: 1px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+        }
+
+        #dropzone {
+            width: 140px;
+            height: 140px;
+            border: 2px dashed #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .over {
+            background: #ddd;
+        }
+
+        .success {
+            border: 2px solid green;
+        }
+
+        .dropped-block {
+            width: 80px;
+            height: 80px;
+            background: yellow;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <div class="arena">
+    <div id="draggable" draggable="true">DRAG</div>
+    <div id="dropzone">DROP HERE</div>
+  </div>
+</div>
+
+<script>
+const draggable = document.getElementById("draggable")
+const dropzone = document.getElementById("dropzone")
+
+draggable.addEventListener("dragstart", () => {
+  setTimeout(() => draggable.classList.add("hidden"), 0)
+  status.textContent = "Drop it in the box"
+})
+
+draggable.addEventListener("dragend", () => {
+  draggable.classList.remove("hidden")
+})
+
+dropzone.addEventListener("dragover", (e) => {
+  e.preventDefault()
+  dropzone.classList.add("over")
+})
+
+dropzone.addEventListener("dragleave", () => {
+  dropzone.classList.remove("over")
+})
+
+dropzone.addEventListener("drop", (e) => {
+  e.preventDefault()
+  dropzone.classList.remove("over")
+
+  dropzone.classList.add("success")
+  dropzone.innerHTML = '<div class="dropped-block"></div>'
+
+  reset.classList.remove("hidden")
+})
+
+</script>
+
+</body>
+</html>
